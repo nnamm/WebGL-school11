@@ -9,7 +9,7 @@ window.addEventListener(
     // app.prepare();
     app.render();
   },
-  false,
+  false
 );
 
 class ThreeApp {
@@ -70,7 +70,9 @@ class ThreeApp {
   ambientLight;
   planeGeometry;
   boxGeometory;
-  ringGeometory;
+  ringGeometory1;
+  ringGeometory2;
+  ringGeometory3;
   material1;
   material2;
   plane1;
@@ -84,9 +86,9 @@ class ThreeApp {
   isDown;
   axesHelper;
   group1;
-  // group2;
-  // group3;
-  // group4;
+  group2;
+  group3;
+  group4;
 
   /** コンストラクタ
    * @constructor
@@ -119,7 +121,7 @@ class ThreeApp {
       cameraParameters.top,
       cameraParameters.bottom,
       cameraParameters.near,
-      cameraParameters.far,
+      cameraParameters.far
     );
     this.camera.position.copy(cameraParameters.position);
     this.camera.lookAt(cameraParameters.lookAt);
@@ -127,7 +129,7 @@ class ThreeApp {
     // 平行光源
     this.directionalLight = new THREE.DirectionalLight(
       ThreeApp.DIRECTIONAL_LIGHT_PARAM.color,
-      ThreeApp.DIRECTIONAL_LIGHT_PARAM.intensity,
+      ThreeApp.DIRECTIONAL_LIGHT_PARAM.intensity
     );
     this.directionalLight.position.copy(ThreeApp.DIRECTIONAL_LIGHT_PARAM.position);
     this.scene.add(this.directionalLight);
@@ -135,7 +137,7 @@ class ThreeApp {
     // 環境光
     this.ambientLight = new THREE.AmbientLight(
       ThreeApp.AMBIENT_LIGHT_PARAM.color,
-      ThreeApp.AMBIENT_LIGHT_PARAM.intensity,
+      ThreeApp.AMBIENT_LIGHT_PARAM.intensity
     );
     this.scene.add(this.ambientLight);
 
@@ -144,7 +146,7 @@ class ThreeApp {
     this.material1 = new THREE.MeshBasicMaterial(ThreeApp.MATERIAL_PARAM1);
     // this.material2 = new THREE.MeshBasicMaterial(ThreeApp.MATERIAL_PARAM2);
 
-    // Planes
+    // Planes - Stage
     this.planeGeometry = new THREE.PlaneGeometry(3, 3);
 
     this.plane1 = new THREE.Mesh(this.planeGeometry, this.material1);
@@ -155,21 +157,20 @@ class ThreeApp {
     this.plane3.rotation.y = Math.PI / 2;
     this.plane3.position.set(-1.5, 1.5, 0.0);
 
-    // Group - Stage
     this.group1 = new THREE.Group();
     this.group1.add(this.plane1);
     this.group1.add(this.plane2);
     this.group1.add(this.plane3);
-
     this.scene.add(this.group1);
 
     // Rings
-    // this.ringGeometory = new THREE.RingGeometry(1.1, 0.5, 2.0, 1.0, 0.0, 0.5);
-    // this.ring1 = new THREE.Mesh(this.ringGeometory, this.material1);
-    // this.group.add(this.ring1);
-    // this.ring2 = new THREE.Mesh(this.ringGeometory, this.material2);
-    // this.ring2.position.x = -1.0;
-    // this.group.add(this.ring2);
+    this.ringGeometory1 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 0.0, 0.5);
+
+    this.ring1 = new THREE.Mesh(this.ringGeometory1, this.material1);
+
+    this.group2 = new THREE.Group();
+    this.group2.add(this.ring1);
+    this.scene.add(this.group2);
 
     const axesBarLength = 5.0;
     this.axesHelper = new THREE.AxesHelper(axesBarLength);
@@ -197,14 +198,14 @@ class ThreeApp {
           default:
         }
       },
-      false,
+      false
     );
     window.addEventListener(
       'keyup',
       (KeyEvent) => {
         this.isDown = false;
       },
-      false,
+      false
     );
 
     // リサイズイベント
@@ -216,7 +217,7 @@ class ThreeApp {
         // おまじない
         this.camera.updateProjectionMatrix();
       },
-      false,
+      false
     );
   }
 
@@ -256,7 +257,6 @@ class ThreeApp {
 
     this.renderer.render(this.scene, this.camera);
   }
-
 
   /**
    * OrthographicCameraの設定処理
