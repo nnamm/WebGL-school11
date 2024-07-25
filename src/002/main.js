@@ -144,7 +144,7 @@ class ThreeApp {
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // Material
     this.material1 = new THREE.MeshBasicMaterial(ThreeApp.MATERIAL_PARAM1);
-    // this.material2 = new THREE.MeshBasicMaterial(ThreeApp.MATERIAL_PARAM2);
+    this.material2 = new THREE.MeshBasicMaterial(ThreeApp.MATERIAL_PARAM2);
 
     // Planes - Stage
     this.planeGeometry = new THREE.PlaneGeometry(3, 3);
@@ -165,11 +165,17 @@ class ThreeApp {
 
     // Rings
     this.ringGeometory1 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 0.0, 0.5);
+    this.ringGeometory2 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 2.8, 0.5);
+    this.ringGeometory3 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 5.6, 0.5);
 
-    this.ring1 = new THREE.Mesh(this.ringGeometory1, this.material1);
+    this.ring1 = new THREE.Mesh(this.ringGeometory1, this.material2);
+    this.ring2 = new THREE.Mesh(this.ringGeometory2, this.material2);
+    this.ring3 = new THREE.Mesh(this.ringGeometory3, this.material2);
 
     this.group2 = new THREE.Group();
     this.group2.add(this.ring1);
+    this.group2.add(this.ring2);
+    this.group2.add(this.ring3);
     this.scene.add(this.group2);
 
     const axesBarLength = 5.0;
