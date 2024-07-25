@@ -55,6 +55,8 @@ class ThreeApp {
   };
   static MATERIAL_PARAM2 = {
     color: 0x0088ff,
+    side: THREE.DoubleSide,
+    wireframe: true,
   };
 
   // アニメーション
@@ -73,6 +75,8 @@ class ThreeApp {
   ringGeometory1;
   ringGeometory2;
   ringGeometory3;
+  capsuleGeometry;
+  capsule;
   material1;
   material2;
   plane1;
@@ -164,18 +168,22 @@ class ThreeApp {
     this.scene.add(this.group1);
 
     // Rings
-    this.ringGeometory1 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 0.0, 0.5);
-    this.ringGeometory2 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 2.8, 0.5);
-    this.ringGeometory3 = new THREE.RingGeometry(1.0, 0.6, 1.0, 1.0, 5.6, 0.5);
+    this.ringGeometory1 = new THREE.RingGeometry(1.0, 0.2, 1.0, 1.0, 0.0, 1.0);
+    this.ringGeometory2 = new THREE.RingGeometry(1.0, 0.2, 1.0, 1.0, 2.0, 1.0);
+    this.ringGeometory3 = new THREE.RingGeometry(1.0, 0.2, 1.0, 1.0, 4.0, 1.0);
+    this.capsuleGeometry = new THREE.CapsuleGeometry(0.3,0.3,2,8);
 
     this.ring1 = new THREE.Mesh(this.ringGeometory1, this.material2);
     this.ring2 = new THREE.Mesh(this.ringGeometory2, this.material2);
     this.ring3 = new THREE.Mesh(this.ringGeometory3, this.material2);
+    this.capsule = new THREE.Mesh(this.capsuleGeometry, this.material2);
+    this.capsule.rotation.x = Math.PI / 2;
 
     this.group2 = new THREE.Group();
     this.group2.add(this.ring1);
     this.group2.add(this.ring2);
     this.group2.add(this.ring3);
+    this.group2.add(this.capsule);
     this.scene.add(this.group2);
 
     const axesBarLength = 5.0;
@@ -258,7 +266,9 @@ class ThreeApp {
 
     // スペースキー押下でスピード変更
     if (this.isDown === true) {
-      this.group1.rotation.z += 0.2;
+      // this.group1.rotation.z += 0.2;
+      this.group1.visible = false;
+      this.group2.rotation.z += 0.15;
     }
 
     this.renderer.render(this.scene, this.camera);
